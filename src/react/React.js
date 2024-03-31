@@ -1,7 +1,3 @@
-
-const handleChildren = (children) => {
-    return Array.isArray(children) ? children : [children]
-}
 const createElementText = (nodeValue) => {
     return {
         type: "ELEMENT_TEXT",
@@ -11,23 +7,23 @@ const createElementText = (nodeValue) => {
         }
     }
 }
-
-// const createElement = (el) => {
-//     const children = typeof children === "string" ? [el.children] : el.children
-//     return {
-//         type: "ELEMENT",
-//         props: {
-//             ...el.props,
-//             children
-//         }
-//     }
-// }
+export const createElement = (type, props, ...children) => {
+    return {
+        type,
+        props: {
+            ...props,
+            children: children.map(child => {
+                return typeof child === "string" ? createElementText(child) : child
+            })
+        }
+    }
+}
 export const render = (el, container) => {
+    console.log(el)
     const dom = el.type === "ELEMENT_TEXT" ?
         document.createTextNode('') :
         document.createElement(el.type)
 
-    const children = handleChildren(el.props.children)
     const { props } = el
 
     // handle props
@@ -38,14 +34,16 @@ export const render = (el, container) => {
     }
 
     // handle children
-    for (const child of children) {
-        if (typeof child === 'string') {
-            render(createElementText(child), container)
-            continue
-        }
-        render(child, container)
-    }
+    const children = el.props?.children ?? [];
+    children.forEach((child) => {
+        render(child, dom);
+    });
 
 
     container.append(dom)
 }
+const React = {
+    render,
+    createElement
+}
+export default React
