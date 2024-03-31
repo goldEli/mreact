@@ -1,4 +1,3 @@
-/**@jsx React.createElement */
 import React from "./react/React"
 function App1() {
   return <div>hi</div>;

@@ -54,6 +54,26 @@ describe("create element" , () => {
         `)
     })
 
+    test("props is null", () => {
+        const ele = React.createElement("div", null, "hi");
+        
+        expect(ele).toMatchInlineSnapshot(`
+         {
+               "props": {
+                 "children": [
+                   {
+                     "props": {
+                       "children": [],
+                       "nodeValue": "hi",
+                     },
+                     "type": "ELEMENT_TEXT",
+                   },
+                 ],
+               },
+               "type": "div",
+             }
+        `)
+    })
     
 
 })
