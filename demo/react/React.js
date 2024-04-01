@@ -127,11 +127,10 @@ function performUnitOfWork() {
 }
 
 function workLoop(deadline) {
-    // 执行工作单元
-    // 1. 执行当前工作单元
-    // 2. 判断当前工作单元是否还有剩余工作
-    // 3. 如果有剩余工作，则继续执行下一个工作单元
-
+    /**
+     * if there is time remaining, isYield = false and nextUnitOfWork is not null, continue performUnitOfWork
+     * else isYield = true, break the loop and stop to performUnitOfWork
+     */
     let isYield = false
     // console.log(deadline.timeRemaining())
     while (!isYield && !!nextUnitOfWork) {
