@@ -98,11 +98,13 @@ function performUnitOfWork() {
 
     // return nextUnitOfWork
     /**
-     * 先找儿子
-     * 没有儿子 找兄弟
-     * 没有兄弟 返回父亲 找父亲的兄弟
-     * 父亲没有兄弟 继续返回父亲的父亲
-     * until null
+     * look for child first
+     * if child is not null, return child
+     * else look for sibling
+     * if sibling is not null, return sibling
+     * else look for parent
+     * if parent's sibling is not null, return parent's sibling
+     * until parent is null
      */
 
     if (nextUnitOfWork.child) {
